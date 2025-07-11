@@ -25,6 +25,3 @@ jobs:
 
       - name: 🛠 Build React App
         run: pnpm run build
-
-      - name: ✅ Run Tests
-        run: pnpm run preview
