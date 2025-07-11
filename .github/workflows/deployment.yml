@@ -1,45 +1,47 @@
 name: React CI
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 on:
   push:
     branches: [main]
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-# steps:
-#   - name: 📥 Checkout Code
-#     uses: actions/checkout@v3
-
-#   - name: 🧰 Setup Node.js
-#     uses: actions/setup-node@v3
-#     with:
-#       node-version: 18
-
-#   - name: ⬇️ Install pnpm
-#     run: npm install -g pnpm
-
-#   - name: 📦 Install Dependencies
-#     run: pnpm install
-
-#   - name: 🛠 Build React App
-#     run: pnpm run build
-
-#   - name: 🚀 Trigger Deployment on Dokploy
-#     run: curl -X POST http://elight.lk/api/deploy/vXRVc6fp1qJeYmmMBW39t
 
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Pull Vercel Environment Information
+      # Step 1: Checkout code
+      - uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install pnpm globally
+      - name: ⬇️ Install pnpm
+        run: npm install -g pnpm
+
+      # Step 4: Install dependencies using pnpm
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      # Step 5: Install Vercel CLI
+      - name: ⚙️ Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      # Step 6: Pull Vercel environment config (required for build)
+      - name: 🧲 Pull Vercel Environment Info
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build Project Artifacts
+
+      # Step 7: Build the project using Vercel CLI
+      - name: 🛠 Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
+
+      # Step 8: Deploy to Vercel using the prebuilt output
+      - name: 🚀 Deploy to Vercel (Preview)
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
