@@ -25,3 +25,6 @@ jobs:
 
       - name: 🛠 Build React App
         run: pnpm run build
+
+      - name: 🚀 Trigger Deployment on Dokploy
+        run: curl -X POST https://dokploy.com/deploy-hook/your-project-id
