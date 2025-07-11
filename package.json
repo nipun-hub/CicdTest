@@ -12,5 +12,8 @@
   "devDependencies": {
     "typescript": "~5.8.3",
     "vite": "^7.0.4"
+  },
+  "dependencies": {
+    "vercel": "^44.4.0"
   }
 }
