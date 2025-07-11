@@ -27,4 +27,4 @@ jobs:
         run: pnpm run build
 
       - name: 🚀 Trigger Deployment on Dokploy
-        run: curl -X POST https://elight.lk/api/deploy/vXRVc6fp1qJeYmmMBW39t
+        run: curl -X POST http://elight.lk/api/deploy/vXRVc6fp1qJeYmmMBW39t
