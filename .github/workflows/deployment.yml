@@ -18,10 +18,10 @@ jobs:
           node-version: 18
 
       - name: 📦 Install Dependencies
-        run: npm install
+        run: pnpm install
 
       - name: 🛠 Build React App
-        run: npm run build
+        run: pnpm run build
 
       - name: ✅ Run Tests
-        run: npm test -- --watchAll=false
+        run: pnpm test -- --watchAll=false
