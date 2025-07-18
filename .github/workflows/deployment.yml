@@ -1,48 +1,15 @@
-name: React CI
-
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+name: Dokploy Hardcoded Webhook Deploy
 
 on:
   push:
-    branches: [main]
+    branches:
+      - qa
 
 jobs:
-  Deploy-Preview:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
-      - uses: actions/checkout@v3
-
-      # Step 2: Setup Node.js
-      - name: 🧰 Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      # Step 3: Install pnpm globally
-      - name: ⬇️ Install pnpm
-        run: npm install -g pnpm
-
-      # Step 4: Install dependencies using pnpm
-      - name: 📦 Install dependencies
-        run: pnpm install
-
-      # Step 5: Install Vercel CLI
-      - name: ⚙️ Install Vercel CLI
-        run: npm install -g vercel@latest
-
-      # Step 6: Pull Vercel environment config (required for build)
-      - name: 🧲 Pull Vercel Environment Info
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
-      # Step 7: Build the project using Vercel CLI
-      - name: 🛠 Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
-      # Step 8: Deploy to Vercel using the prebuilt output
-      - name: 🚀 Deploy to Vercel (Production)
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-
+      - name: Trigger Dokploy Deployment via Webhook
+        run: |
+          curl -X POST http://95.111.248.142:3000/api/deploy/vXRVc6fp1qJeYmmMBW39t
