@@ -3,7 +3,7 @@ name: Dokploy Hardcoded Webhook Deploy
 on:
   push:
     branches:
-      - qa
+      - main
 
 jobs:
   deploy:
